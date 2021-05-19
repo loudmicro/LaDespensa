@@ -45,11 +45,11 @@ $(document).ready(function () {
         primaryKey: 'nombre',
         inlineEditing:false,
         columns: [
-            { field: 'nombre',editor: true },
+            { field: 'nombre',editor: true,  },
             { field: 'cantidad', editor: true },
-            { field: 'categoria',editor:false, title: 'Categoría', type: 'dropdown', editField: 'categoria' },
-            { field: 'minimo', title: 'Min' ,width: 90, editor: false},
-            { width: 56, align: 'center', renderer: renderer }            
+            { field: 'categoria',editor:false,title: 'Categoría', type: 'dropdown', editField: 'categoria' },
+            { field: 'minimo', title: 'Min',priority:2, editor: false},
+            { width: 45,align: 'left', renderer: renderer }            
 
         ],
         pager: { limit: 100000 }

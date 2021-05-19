@@ -9,6 +9,10 @@ var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+/* prueba de password protected */
+const auth = require('./auth')
+app.use(auth)
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -16,10 +20,10 @@ app.use(bodyParser.json());
 
 
 var con = mysql.createConnection({
-  host: secret.MYSQL_HOST,
-  user: secret.MYSQL_USERNAME,
-  password: secret.MYSQL_PASSWORD,
-  database: secret.MYSQL_DB
+  host: "localhost",
+  user: "notMyUsername",
+  password: "TotallymyPassword",
+  database: "despensa"
 });
 
 con.connect();
@@ -184,8 +188,9 @@ app.post('/getCustom', function (req, res) {
       sql = "SELECT * FROM productos";
       break;
     case "needed":
-      console.log("Entra por needed");
-      sql = "SELECT * from productos p WHERE cantidad < p.minimo";
+      console.log("Entra por needed ordenado");
+      sql = "SELECT p.nombre, p.cantidad,p.categoria,p.minimo from productos p join categorias c on( p.categoria = c.nombre) WHERE cantidad < p.minimo order BY 'c.nombre'";
+      //sql = "SELECT * from productos p WHERE cantidad = 3";
       break;
     case "agotado":
       console.log("Entra por agotado");
